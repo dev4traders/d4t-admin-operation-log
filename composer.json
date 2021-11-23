@@ -13,7 +13,7 @@
   ],
   "require": {
     "php": ">=7.1.0",
-    "mikha-dev/dcat-admin": "~2.0"
+    "mikha-dev/dcat-admin": "*"
   },
   "autoload": {
     "psr-4": {
