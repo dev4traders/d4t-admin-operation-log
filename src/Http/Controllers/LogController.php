@@ -2,6 +2,7 @@
 
 namespace Dcat\Admin\OperationLog\Http\Controllers;
 
+use Dcat\Admin\Admin;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\JsonResponse;
 use Dcat\Admin\Layout\Content;
@@ -23,6 +24,11 @@ class LogController
     protected function grid()
     {
         return new Grid(OperationLog::with('user'), function (Grid $grid) {
+
+            if(!Admin::user()->isAdministrator()) {
+                $grid->model()->whereUserId(Admin::user()->id);
+            }
+
             $grid->column('id', 'ID')->sortable();
             $grid->column('user', trans('admin.user'))
                 ->display(function ($user) {

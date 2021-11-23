@@ -1,6 +1,7 @@
 {
   "name": "mikha-dev/dcat-operation-log",
   "description": "Dcat Admin Operation log",
+  "alias": "Operation Logs",
   "type": "library",
   "keywords": ["dcat-admin", "extension"],
   "homepage": "https://github.com/dcat-admin/operation-log",

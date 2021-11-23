@@ -18,6 +18,7 @@ class LogOperation
 
     protected $except = [
         'dcat-admin.operation-log.*',
+        'dcat-api/render'
     ];
 
     protected $defaultAllowedMethods = ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE', 'PATCH'];
