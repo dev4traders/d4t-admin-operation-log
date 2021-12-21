@@ -77,9 +77,8 @@ class LogController
             $grid->model()->orderBy('id', 'DESC');
 
             $grid->disableCreateButton();
-            $grid->disableQuickEditButton();
-            $grid->disableEditButton();
-            $grid->disableViewButton();
+
+            $grid->disableActions();
             $grid->showColumnSelector();
             $grid->setActionClass(Grid\Displayers\Actions::class);
 
