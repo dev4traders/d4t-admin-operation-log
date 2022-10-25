@@ -9,6 +9,7 @@ use Dcat\Admin\Layout\Content;
 use Dcat\Admin\OperationLog\Models\OperationLog;
 use Dcat\Admin\OperationLog\OperationLogServiceProvider;
 use Dcat\Admin\Support\Helper;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 
 class LogController
@@ -26,7 +27,11 @@ class LogController
         return new Grid(OperationLog::with('user'), function (Grid $grid) {
 
             if(!Admin::user()->isAdministrator()) {
-                $grid->model()->whereUserId(Admin::user()->id);
+                $grid->model()
+                    ->where('user_id', Admin::id())
+                    ->orWhereHas('user', function (Builder $query) {
+                        $query->where('manager_id', Admin::id());
+                    });
             }
 
             $grid->column('id', 'ID')->sortable();
@@ -42,9 +47,9 @@ class LogController
                 })
                 ->link(function () {
                     if ($this->user) {
-                        return admin_url('auth/users/'.$this->user['id']);
+                        return admin_url('clients/'.$this->user['id']);
                     }
-                });
+                }, '');
 
             $grid->column('method', trans('admin.method'))
                 ->label(OperationLog::$methodColors)
