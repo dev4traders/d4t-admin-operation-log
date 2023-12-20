@@ -12,7 +12,11 @@ class OperationLogServiceProvider extends ServiceProvider
     {
         return ExtensionType::ADDON;
     }
-    
+
+    const URL_OP_LOG = 'operation-logs';
+
+    const PERMISSION_OP_LOG = 'mng.opertion_logs';
+
     protected $middleware = [
         'middle' => [
             LogOperation::class,
@@ -22,7 +26,17 @@ class OperationLogServiceProvider extends ServiceProvider
     protected $menu = [
         [
             'title' => 'Operation Log',
-            'uri'   => 'auth/operation-logs',
+            'icon' => 'fa-folder-open',
+            'uri'   => 'operation-logs',
+            'permission_slug' => self::PERMISSION_OP_LOG
+        ],
+    ];
+
+    protected array $permissions = [
+        [
+            'slug' => self::PERMISSION_OP_LOG,
+            'name' => 'Manager Opeartions Logs',
+            'path' => self::URL_OP_LOG,
         ],
     ];
 

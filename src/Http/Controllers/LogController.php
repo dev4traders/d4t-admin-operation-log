@@ -3,6 +3,7 @@
 namespace Dcat\Admin\OperationLog\Http\Controllers;
 
 use Dcat\Admin\Admin;
+use Dcat\Admin\Enums\RouteAuth;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\JsonResponse;
 use Dcat\Admin\Layout\Content;
@@ -47,12 +48,12 @@ class LogController
                 })
                 ->link(function () {
                     if ($this->user) {
-                        return admin_url('clients/'.$this->user['id']);
+                        return admin_route(RouteAuth::USERS()).'/'.$this->user['id'];
                     }
                 }, '');
 
             $grid->column('method', trans('admin.method'))
-                ->label(OperationLog::$methodColors)
+                //->label(OperationLog::$methodColors)
                 ->filterByValue();
 
             $grid->column('path', trans('admin.uri'))->display(function ($v) {
@@ -87,21 +88,23 @@ class LogController
             $grid->showColumnSelector();
             $grid->setActionClass(Grid\Displayers\Actions::class);
 
-            $grid->filter(function (Grid\Filter $filter) {
-                $userModel = config('admin.database.users_model');
+            //todo::fix
+            //Dcat\Admin\Layout\Asset::css(): Argument #1 ($css) must be of type array|string, null given, called in /var/www/html/funded3/vendor/mikha-dev/dcat-admin/src/Layout/Asset.php on line 428
+            // $grid->filter(function (Grid\Filter $filter) {
+            //     $userModel = config('admin.database.users_model');
 
-                $filter->in('user_id', trans('admin.user'))
-                    ->multipleSelect($userModel::pluck('name', 'id'));
+            //     $filter->in('user_id', trans('admin.user'))
+            //         ->multipleSelect($userModel::pluck('name', 'id'));
 
-                $filter->equal('method', trans('admin.method'))
-                    ->select(
-                        array_combine(OperationLog::$methods, OperationLog::$methods)
-                    );
+            //     $filter->equal('method', trans('admin.method'))
+            //         ->select(
+            //             array_combine(OperationLog::$methods, OperationLog::$methods)
+            //         );
 
-                $filter->like('path', trans('admin.uri'));
-                $filter->equal('ip', 'IP');
-                $filter->between('created_at')->datetime();
-            });
+            //     $filter->like('path', trans('admin.uri'));
+            //     $filter->equal('ip', 'IP');
+            //     $filter->between('created_at')->datetime();
+            // });
         });
     }
 

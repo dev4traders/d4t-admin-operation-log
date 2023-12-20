@@ -1,7 +1,8 @@
 <?php
 
-use Dcat\Admin\OperationLog\Http\Controllers;
 use Illuminate\Support\Facades\Route;
+use Dcat\Admin\OperationLog\OperationLogServiceProvider;
+use Dcat\Admin\OperationLog\Http\Controllers\LogController;
 
-Route::get('auth/operation-logs', Controllers\LogController::class.'@index')->name('dcat-admin.operation-log.index');
-Route::delete('auth/operation-logs/{id}', Controllers\LogController::class.'@destroy')->name('dcat-admin.operation-log.destroy');
+Route::get(OperationLogServiceProvider::URL_OP_LOG, LogController::class.'@index')->name('dcat-admin.operation-log.index');
+Route::delete(OperationLogServiceProvider::URL_OP_LOG.'/{id}', LogController::class.'@destroy')->name('dcat-admin.operation-log.destroy');
