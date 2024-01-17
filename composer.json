@@ -13,8 +13,8 @@
     }
   ],
   "require": {
-    "php": ">=7.1.0",
-    "mikha-dev/dcat-admin": "*"
+    "php": "^8.1",
+    "dev4traders/dcat-admin": "dev-main"
   },
   "autoload": {
     "psr-4": {
